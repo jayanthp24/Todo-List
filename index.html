@@ -1,0 +1,50 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/50ce6c481b.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+    <title>Memo Sheet</title>
+</head>
+<body>
+    <div class="container">
+        <header class="text-center text-light my-4">
+            <h1 class="mb-4">Todo-List</h1>
+            <form class="search">
+                <input class= "form-control m-auto" type="text" name="search" placeholder="Search...">
+            </form>
+        </header>
+
+        <ul class="list-group todos mx-auto text-light">
+            
+        </ul>
+      
+        <form class="add text-center my-4">
+            <label class="text-light">Add a new todo...</label>
+            <input class="form-control m-auto" type="text" name="add" />
+        </form>
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyA11rgfOQF0rzzC-f-3qS_gh9W5Z4BSr5c",
+            authDomain: "jstodos-6ed01.firebaseapp.com",
+            projectId: "jstodos-6ed01",
+            storageBucket: "jstodos-6ed01.appspot.com",
+            messagingSenderId: "308151805231",
+            appId: "1:308151805231:web:cca12e7c400b72c310adda",
+            measurementId: "G-4TFTFVETE5"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+
+    <script src="todo.js"></script>
+</body>
+</html>
