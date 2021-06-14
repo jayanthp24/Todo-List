@@ -1,5 +1,6 @@
 body{
-    background: #352f5b;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url("https://i.postimg.cc/NGdHBrrk/back.jpg");
+    background-size: cover;
 }
 .container{
     max-width: 400px;
