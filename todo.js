@@ -12,35 +12,50 @@ const addTemplate = (todo, id) => {
     list.innerHTML += html;
 };
 
+
+const deleteTemplate = (id) => {
+    const tasks = document.querySelectorAll('li');
+    tasks.forEach(task => {
+        if(task.getAttribute('data-id') === id){
+            task.remove();
+        }
+    });
+};
+
+db.collection('todos').onSnapshot(snapshot => {
+    console.log(snapshot.docChanges());
+    snapshot.docChanges().forEach(change => {
+        const doc = change.doc;
+        if(change.type === 'added'){
+            addTemplate(doc.data(), doc.id);
+        } else if (change.type === 'removed'){
+            deleteTemplate(doc.id);
+        }
+    });
+});
+
 addForm.addEventListener('submit', e => {
     e.preventDefault();
     const todo = {
         todo: addForm.add.value.trim(),
     };
     db.collection('todos').add(todo).then(() => {
-        alert("New task added successfully");
+        Swal.fire({
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: true,
+        });
     }).catch(err => {
         alert(err);
     });
     addForm.reset();
-    setInterval(function () {
-        window.location.reload();
-    }, 2000)
-});
-
-db.collection('todos').get().then(snapshot => {
-    snapshot.docs.forEach(doc => {
-        addTemplate(doc.data(), doc.id);
-    });
-        }).catch(err => {
-    console.log(err);
 });
 
 list.addEventListener('click', e => {
     if(e.target.classList.contains('delete')) {
         Swal.fire({
             title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            text: "Have you really completed the task and proceed to delete?",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -61,9 +76,6 @@ list.addEventListener('click', e => {
                 };  
         });
     };
-    setInterval(function () {
-        window.location.reload();
-    }, 3000)
 });
 
 const filterList = (term) => {
