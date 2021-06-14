@@ -38,16 +38,32 @@ db.collection('todos').get().then(snapshot => {
 
 list.addEventListener('click', e => {
     if(e.target.classList.contains('delete')) {
-        const id = e.target.parentElement.getAttribute('data-id');
-        db.collection('todos').doc(id).delete().then(() => {
-            alert("Task deleted successfully");
-        }).catch(err => {
-            alert(err);
-        })
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                    const id = e.target.parentElement.getAttribute('data-id');
+                    db.collection('todos').doc(id).delete().then(() => {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }).catch(err => {
+                        alert(err);
+                    });
+                };  
+        });
     };
     setInterval(function () {
         window.location.reload();
-    }, 2000)
+    }, 3000)
 });
 
 const filterList = (term) => {
